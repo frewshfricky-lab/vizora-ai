@@ -1,1 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>VIZORA AI — Turn Words Into Videos</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #07070a;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 6%;
+      border-bottom: 1px solid #1d1d25;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #8b5cf6;
+    }
+
+    .badge {
+      padding: 8px 14px;
+      border: 1px solid #292934;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .hero {
+      max-width: 950px;
+      margin: auto;
+      padding: 70px 20px 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 78px);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: #999;
+      font-size: 18px;
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .studio {
+      max-width: 900px;
+      margin: 30px auto 80px;
+      padding: 25px;
+      background: #101015;
+      border: 1px solid #25252f;
+      border-radius: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 10px;
+      color: #ddd;
+      font-weight: 600;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 170px;
+      resize: vertical;
+      background: #08080c;
+      color: white;
+      border: 1px solid #292933;
+      border-radius: 14px;
+      padding: 18px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #8b5cf6;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .control {
+      text-align: left;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px;
+      background: #08080c;
+      color: white;
+      border: 1px solid #292933;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .generate {
+      width: 100%;
+      margin-top: 25px;
+      padding: 17px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #7c3aed, #db2777);
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .generate:active {
+      transform: scale(.98);
+    }
+
+    .status {
+      display: none;
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 14px;
+      background: #08080c;
+      border: 1px solid #292933;
+      color: #aaa;
+    }
+
+    .video-box {
+      display: none;
+      margin-top: 25px;
+      aspect-ratio: 9 / 16;
+      max-width: 350px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #050507;
+      border: 1px solid #292933;
+      border-radius: 16px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #777;
+      padding: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      border-top: 1px solid #1d1d25;
+      font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      .studio {
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">VIZORA<span>AI</span></div>
+  <div class="badge">AI VIDEO STUDIO</div>
+</header>
+
+<section class="hero">
+  <h1>
+    Turn Your Words<br>
+    Into <span class="gradient">Videos.</span>
+  </h1>
+
+  <p>
+    Describe your idea and VIZORA AI will transform your imagination
+    into cinematic video.
+  </p>
+</section>
+
+<section class="studio">
+
+  <label for="prompt">Describe your video</label>
+
+  <textarea
+    id="prompt"
+    placeholder="Example: A young African trader watches XAUUSD crash on his laptop. Suddenly the market reverses and he jumps out of his chair celebrating..."
+  ></textarea>
+
+  <div class="controls">
+
+    <div class="control">
+      <label>Style</label>
+
+      <select id="style">
+        <option>Cinematic</option>
+        <option>Realistic</option>
+        <option>Anime</option>
+        <option>Cartoon</option>
+        <option>3D Animation</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label>Format</label>
+
+      <select id="format">
+        <option value="9:16">9:16 — TikTok / Reels</option>
+        <option value="16:9">16:9 — YouTube</option>
+        <option value="1:1">1:1 — Social</option>
+      </select>
+    </div>
+
+    <div class="control">
+      <label>Duration</label>
+
+      <select id="duration">
+        <option>5 seconds</option>
+        <option>10 seconds</option>
+        <option>15 seconds</option>
+        <option>30 seconds</option>
+      </select>
+    </div>
+
+  </div>
+
+  <button class="generate" onclick="generateVideo()">
+    ✨ GENERATE VIDEO
+  </button>
+
+  <div class="status" id="status">
+    🎬 Preparing your video...
+  </div>
+
+  <div class="video-box" id="videoBox">
+    <div>
+      🎥<br><br>
+      Your generated video will appear here.
+      <br><br>
+      <small>AI generation engine coming next.</small>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 VIZORA AI — Turn imagination into video.
+</footer>
+
+<script>
+
+function generateVideo() {
+
+  const prompt = document.getElementById("prompt").value.trim();
+  const status = document.getElementById("status");
+  const videoBox = document.getElementById("videoBox");
+
+  if (!prompt) {
+    alert("Please describe the video you want to create.");
+    return;
+  }
+
+  status.style.display = "block";
+  videoBox.style.display = "none";
+
+  status.innerHTML = "🎬 Preparing your video...";
+
+  setTimeout(() => {
+    status.innerHTML =
+      "🤖 AI engine connected successfully — video generation will be added in the next stage.";
+
+    videoBox.style.display = "flex";
+  }, 1800);
+}
+
+</script>
+
+</body>
+</html>
