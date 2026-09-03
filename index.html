@@ -912,8 +912,8 @@ footer{
             15 seconds
           </option>
 
-          <option value="30">
-            30 seconds
+          <option value="20">
+            20 seconds
           </option>
 
         </select>
@@ -1110,37 +1110,59 @@ footer{
 VIZORA AI — REAL AI VIDEO ENGINE
 ==========================================================
 
-This version connects the website to:
+CONNECTED ENGINE:
 
-Hugging Face Space:
+Hugging Face Space
 Saravutw/Omni-videos-custom
 
-Text-to-video endpoint:
+REAL TEXT-TO-VIDEO ENDPOINT:
 
 /_submit_t2v
 
-The website itself remains a static frontend.
-The AI generation is performed by the public
-Hugging Face Gradio Space.
+IMPORTANT:
 
+The Omni API accepts:
+
+scene_count       -> integer
+seconds_per_scene -> integer
+resolution        -> integer
+aspect_ratio      -> string
+base_prompt       -> string
+s1                -> string
+s2                -> string
+s3                -> string
+s4                -> string
+
+This file uses those values exactly.
 ==========================================================
 */
 
-import { Client } from
-"https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
+
+import {
+  Client
+} from
+"https://cdn.jsdelivr.net/npm/@gradio/client@1.20.0/dist/index.min.js";
 
 
-/* -------------------------------------------------------
-   VIZORA AI ENGINE
-------------------------------------------------------- */
+/* ========================================================
+   ENGINE SETTINGS
+======================================================== */
 
 const SPACE_NAME =
   "Saravutw/Omni-videos-custom";
 
 
-/* -------------------------------------------------------
+const T2V_ENDPOINT =
+  "/_submit_t2v";
+
+
+const SPACE_BASE_URL =
+  "https://saravutw-omni-videos-custom.hf.space";
+
+
+/* ========================================================
    GLOBAL STATE
-------------------------------------------------------- */
+======================================================== */
 
 let generatedVideoUrl = "";
 
@@ -1149,11 +1171,12 @@ let currentJobRunning = false;
 let progressTimer = null;
 
 
-/* -------------------------------------------------------
+/* ========================================================
    TAB SYSTEM
-------------------------------------------------------- */
+======================================================== */
 
-window.selectTab = function(button,type){
+window.selectTab =
+function(button,type){
 
   document
     .querySelectorAll(".tab")
@@ -1162,6 +1185,7 @@ window.selectTab = function(button,type){
       tab.classList.remove("active");
 
     });
+
 
   button.classList.add("active");
 
@@ -1173,72 +1197,45 @@ window.selectTab = function(button,type){
   if(type === "image"){
 
     prompt.placeholder =
-      "Image to Video will allow you to upload an image and describe how you want it animated.";
+      "Image to Video will be connected to the Omni image-to-video engine in the next upgrade.";
 
     showMessage(
-      "Image to Video is the next VIZORA upgrade."
+      "🖼️ Image to Video is coming next."
     );
 
   }
+
 
   else if(type === "story"){
 
     prompt.placeholder =
-      "Write your story here. VIZORA will eventually break it into scenes and create the video.";
+      "Write your story here. Story-to-Video will turn it into multiple scenes in a future upgrade.";
 
     showMessage(
-      "Story to Video is the next VIZORA upgrade."
+      "📖 Story to Video is coming next."
     );
 
   }
 
+
   else{
 
     prompt.placeholder =
-      "Example: A young African trader sits in a dark room watching XAUUSD on his laptop. Suddenly gold starts rising rapidly...";
+      "Example: A young African trader sits in a dark room watching XAUUSD on his laptop. Suddenly gold starts rising rapidly. He jumps from his chair and celebrates...";
 
   }
 
 };
 
 
-/* -------------------------------------------------------
-   FORMAT CONVERTER
-------------------------------------------------------- */
-
-function getDimensions(format){
-
-  if(format === "16:9"){
-
-    return {
-      width:1280,
-      height:720
-    };
-
-  }
-
-  if(format === "1:1"){
-
-    return {
-      width:720,
-      height:720
-    };
-
-  }
-
-  return {
-    width:720,
-    height:1280
-  };
-
-}
-
-
-/* -------------------------------------------------------
+/* ========================================================
    BUILD STYLE PROMPT
-------------------------------------------------------- */
+======================================================== */
 
-function buildPrompt(prompt,style){
+function buildPrompt(
+  prompt,
+  style
+){
 
   return (
     prompt +
@@ -1250,9 +1247,9 @@ function buildPrompt(prompt,style){
 }
 
 
-/* -------------------------------------------------------
-   UPDATE STATUS
-------------------------------------------------------- */
+/* ========================================================
+   STATUS
+======================================================== */
 
 function setStatus(
   text,
@@ -1273,21 +1270,27 @@ function setStatus(
     document.getElementById("progressBar");
 
 
-  status.style.display = "block";
+  status.style.display =
+    "block";
 
-  statusText.textContent = text;
 
-  statusSmall.textContent = small;
+  statusText.textContent =
+    text;
+
+
+  statusSmall.textContent =
+    small;
+
 
   if(
     typeof progress === "number"
   ){
 
     progressBar.style.width =
-      Math.min(
-        98,
-        Math.max(
-          3,
+      Math.max(
+        3,
+        Math.min(
+          100,
           progress
         )
       ) + "%";
@@ -1297,55 +1300,186 @@ function setStatus(
 }
 
 
-/* -------------------------------------------------------
-   FAKE PROGRESS WHILE SERVER WORKS
-------------------------------------------------------- */
+/* ========================================================
+   PROGRESS ANIMATION
+======================================================== */
 
 function startProgress(){
 
-  let progress = 5;
+  let progress = 8;
+
+
+  clearInterval(
+    progressTimer
+  );
+
 
   const progressBar =
-    document.getElementById("progressBar");
+    document.getElementById(
+      "progressBar"
+    );
 
 
-  clearInterval(progressTimer);
+  progressBar.style.width =
+    progress + "%";
 
 
   progressTimer =
-    setInterval(function(){
+    setInterval(
+      function(){
 
-      if(progress < 92){
+        if(progress < 90){
 
-        progress +=
-          progress < 50
-            ? 3
-            : 1;
+          if(progress < 45){
 
-        progressBar.style.width =
-          progress + "%";
+            progress += 4;
 
-      }
+          }
 
-    },1200);
+          else if(progress < 70){
+
+            progress += 2;
+
+          }
+
+          else{
+
+            progress += 1;
+
+          }
+
+
+          progressBar.style.width =
+            progress + "%";
+
+        }
+
+      },
+      1200
+    );
 
 }
 
 
 function stopProgress(){
 
-  clearInterval(progressTimer);
+  clearInterval(
+    progressTimer
+  );
 
-  progressTimer = null;
+  progressTimer =
+    null;
 
 }
 
 
-/* -------------------------------------------------------
-   EXTRACT VIDEO URL
-------------------------------------------------------- */
+/* ========================================================
+   NORMALIZE FILE URL
+======================================================== */
 
-function findVideoUrl(data){
+function normalizeVideoUrl(
+  value
+){
+
+  if(!value){
+    return "";
+  }
+
+
+  if(
+    typeof value === "string"
+  ){
+
+    if(
+      value.startsWith("http://") ||
+      value.startsWith("https://")
+    ){
+
+      return value;
+
+    }
+
+
+    /*
+      If the server gives us a relative
+      file path, try the Space URL.
+    */
+
+    if(
+      value.startsWith("/")
+    ){
+
+      return (
+        SPACE_BASE_URL +
+        value
+      );
+
+    }
+
+  }
+
+
+  if(
+    typeof value === "object"
+  ){
+
+    if(
+      typeof value.url === "string" &&
+      value.url
+    ){
+
+      return value.url;
+
+    }
+
+
+    if(
+      typeof value.path === "string" &&
+      value.path
+    ){
+
+      if(
+        value.path.startsWith(
+          "http://"
+        ) ||
+        value.path.startsWith(
+          "https://"
+        )
+      ){
+
+        return value.path;
+
+      }
+
+
+      if(
+        value.path.startsWith("/")
+      ){
+
+        return (
+          SPACE_BASE_URL +
+          value.path
+        );
+
+      }
+
+    }
+
+  }
+
+
+  return "";
+
+}
+
+
+/* ========================================================
+   FIND VIDEO FILE
+======================================================== */
+
+function findVideoUrl(
+  data
+){
 
   if(!data){
     return "";
@@ -1353,93 +1487,139 @@ function findVideoUrl(data){
 
 
   /*
-    Gradio normally returns an object like:
+    First look specifically for
+    the VideoData structure returned
+    by the Omni endpoint.
 
+    output_1:
     {
-      video: {
-        path: "...",
-        url: "..."
-      }
+      video: FileData,
+      subtitles: ...
     }
-
-    We check several possible structures
-    because different Gradio versions can
-    return slightly different file objects.
   */
 
+  if(
+    data.output_1 &&
+    data.output_1.video
+  ){
 
-  function inspect(value){
+    const direct =
+      normalizeVideoUrl(
+        data.output_1.video
+      );
 
-    if(!value){
+
+    if(direct){
+      return direct;
+    }
+
+  }
+
+
+  /*
+    Sometimes result.data itself
+    is an array.
+
+    Search everything safely.
+  */
+
+  function inspect(
+    value,
+    depth
+  ){
+
+    if(
+      !value ||
+      depth > 8
+    ){
+
       return "";
+
     }
 
 
-    if(typeof value === "string"){
+    const direct =
+      normalizeVideoUrl(
+        value
+      );
+
+
+    if(direct){
+
+      /*
+        Avoid treating ordinary text
+        as a video.
+      */
+
+      const lower =
+        direct.toLowerCase();
+
 
       if(
-        value.startsWith("http://") ||
-        value.startsWith("https://")
+        lower.includes(".mp4") ||
+        lower.includes(".webm") ||
+        lower.includes(".mov") ||
+        lower.includes("/file=")
       ){
 
-        return value;
+        return direct;
+
       }
 
-      return "";
     }
 
 
-    if(Array.isArray(value)){
+    if(
+      Array.isArray(value)
+    ){
 
       for(
         const item of value
       ){
 
         const found =
-          inspect(item);
+          inspect(
+            item,
+            depth + 1
+          );
+
 
         if(found){
+
           return found;
+
         }
 
       }
+
 
       return "";
 
     }
 
 
-    if(typeof value === "object"){
+    if(
+      typeof value === "object"
+    ){
 
-      if(
-        typeof value.url === "string" &&
-        value.url.length > 0
-      ){
-
-        return value.url;
-      }
-
-
-      if(
-        typeof value.path === "string" &&
-        (
-          value.path.endsWith(".mp4") ||
-          value.path.endsWith(".webm") ||
-          value.path.endsWith(".mov")
-        )
-      ){
-
-        return value.path;
-      }
-
+      /*
+        VideoData usually has
+        a "video" property.
+      */
 
       if(value.video){
 
         const found =
-          inspect(value.video);
+          inspect(
+            value.video,
+            depth + 1
+          );
+
 
         if(found){
+
           return found;
+
         }
 
       }
@@ -1450,67 +1630,106 @@ function findVideoUrl(data){
       ){
 
         const found =
-          inspect(value[key]);
+          inspect(
+            value[key],
+            depth + 1
+          );
+
 
         if(found){
+
           return found;
+
         }
 
       }
 
     }
 
+
     return "";
 
   }
 
 
-  return inspect(data);
+  return inspect(
+    data,
+    0
+  );
 
 }
 
 
-/* -------------------------------------------------------
-   DISPLAY GENERATED VIDEO
-------------------------------------------------------- */
+/* ========================================================
+   DISPLAY VIDEO
+======================================================== */
 
-function displayVideo(videoUrl){
+function displayVideo(
+  videoUrl
+){
 
   const result =
-    document.getElementById("result");
+    document.getElementById(
+      "result"
+    );
+
 
   const videoBox =
-    document.getElementById("videoBox");
+    document.getElementById(
+      "videoBox"
+    );
+
 
   const downloadBtn =
-    document.getElementById("downloadBtn");
+    document.getElementById(
+      "downloadBtn"
+    );
 
 
   generatedVideoUrl =
     videoUrl;
 
 
-  videoBox.innerHTML = "";
+  videoBox.innerHTML =
+    "";
 
 
   const video =
-    document.createElement("video");
+    document.createElement(
+      "video"
+    );
 
 
-  video.controls = true;
-
-  video.playsInline = true;
-
-  video.preload = "metadata";
-
-  video.src = videoUrl;
+  video.controls =
+    true;
 
 
-  videoBox.appendChild(video);
+  video.playsInline =
+    true;
+
+
+  video.preload =
+    "metadata";
+
+
+  video.setAttribute(
+    "controlsList",
+    "nodownload"
+  );
+
+
+  video.src =
+    videoUrl;
+
+
+  videoBox.appendChild(
+    video
+  );
 
 
   downloadBtn.href =
     videoUrl;
+
 
   downloadBtn.style.display =
     "block";
@@ -1518,6 +1737,22 @@ function displayVideo(videoUrl){
 
   result.style.display =
     "block";
+
+
+  video.onerror =
+    function(){
+
+      console.error(
+        "Video playback error:",
+        videoUrl
+      );
+
+
+      showMessage(
+        "The video was generated, but the browser could not load the preview."
+      );
+
+    };
 
 
   result.scrollIntoView({
@@ -1528,14 +1763,16 @@ function displayVideo(videoUrl){
 }
 
 
-/* -------------------------------------------------------
-   MAIN GENERATION FUNCTION
-------------------------------------------------------- */
+/* ========================================================
+   MAIN GENERATOR
+======================================================== */
 
 window.generateVideo =
 async function(){
 
-  if(currentJobRunning){
+  if(
+    currentJobRunning
+  ){
 
     showMessage(
       "A video is already being generated."
@@ -1548,7 +1785,9 @@ async function(){
 
   const prompt =
     document
-      .getElementById("prompt")
+      .getElementById(
+        "prompt"
+      )
       .value
       .trim();
 
@@ -1564,64 +1803,80 @@ async function(){
   }
 
 
-  const button =
-    document.getElementById("generateBtn");
+  const style =
+    document
+      .getElementById(
+        "style"
+      )
+      .value;
 
-  const result =
-    document.getElementById("result");
+
+  const format =
+    document
+      .getElementById(
+        "format"
+      )
+      .value;
+
 
   const duration =
     Number(
       document
-        .getElementById("duration")
+        .getElementById(
+          "duration"
+        )
         .value
     );
 
-  const format =
-    document
-      .getElementById("format")
-      .value;
 
-  const style =
-    document
-      .getElementById("style")
-      .value;
+  const button =
+    document.getElementById(
+      "generateBtn"
+    );
+
+
+  const result =
+    document.getElementById(
+      "result"
+    );
 
 
   /*
-    The current Omni API accepts:
+    Omni supports:
 
-    3 or 5 seconds per scene.
+    scene_count:
+    1 - 4
 
-    For longer videos we create multiple scenes.
+    seconds_per_scene:
+    3 or 5
+
+    Therefore:
+
+    5 sec  = 1 scene × 5 sec
+    10 sec = 2 scenes × 5 sec
+    15 sec = 3 scenes × 5 sec
+    20 sec = 4 scenes × 5 sec
   */
 
-  let sceneCount = 1;
 
-  let secondsPerScene = 5;
+  let sceneCount;
 
 
-  if(duration <= 5){
+  if(duration === 5){
 
     sceneCount = 1;
 
-    secondsPerScene = 5;
-
   }
 
-  else if(duration <= 10){
+  else if(duration === 10){
 
     sceneCount = 2;
 
-    secondsPerScene = 5;
-
   }
 
-  else if(duration <= 15){
+  else if(duration === 15){
 
     sceneCount = 3;
-
-    secondsPerScene = 5;
 
   }
 
@@ -1629,30 +1884,35 @@ async function(){
 
     sceneCount = 4;
 
-    secondsPerScene = 5;
-
   }
 
 
+  const secondsPerScene =
+    5;
+
+
   /*
-    Omni currently accepts resolutions:
+    Omni supports 384 and 512.
 
-    384
-    512
-
-    We use 512 for better quality.
+    512 gives us the better available
+    resolution in this Space.
   */
 
-  const resolution = 512;
+  const resolution =
+    512;
 
 
-  const dimensions =
-    getDimensions(format);
+  currentJobRunning =
+    true;
 
 
-  currentJobRunning = true;
+  generatedVideoUrl =
+    "";
 
-  button.disabled = true;
+
+  button.disabled =
+    true;
+
 
   button.textContent =
     "⏳ GENERATING VIDEO...";
@@ -1662,9 +1922,19 @@ async function(){
     "none";
 
 
+  const downloadBtn =
+    document.getElementById(
+      "downloadBtn"
+    );
+
+
+  downloadBtn.style.display =
+    "none";
+
+
   setStatus(
     "Connecting to VIZORA AI engine...",
-    "Preparing your video request.",
+    "Connecting to the free Hugging Face video engine.",
     5
   );
 
@@ -1674,15 +1944,8 @@ async function(){
 
   try{
 
-    setStatus(
-      "AI engine connected.",
-      "Sending your prompt to the video generator...",
-      10
-    );
-
-
     /*
-      Connect to Hugging Face Gradio Space.
+      Connect to the actual public Space.
     */
 
     const app =
@@ -1692,78 +1955,81 @@ async function(){
 
 
     setStatus(
-      "Creating your scenes...",
-      "The AI is generating your video. This may take some time.",
-      20
+      "VIZORA AI engine connected.",
+      "Preparing your video scenes...",
+      15
     );
 
 
     /*
-      Create scene prompts.
+      Create four possible scene prompts.
 
-      We use the same main idea while
-      slightly varying the camera language.
+      Only the number selected by
+      sceneCount will actually be used
+      by the backend.
     */
 
-    const scenePrompts = [
-
+    const mainPrompt =
       buildPrompt(
-        prompt +
-        " Establishing shot. Wide cinematic composition.",
+        prompt,
         style
-      ),
-
-      buildPrompt(
-        prompt +
-        " Medium cinematic shot. Natural movement and camera motion.",
-        style
-      ),
-
-      buildPrompt(
-        prompt +
-        " Close cinematic shot. Detailed subject movement.",
-        style
-      ),
-
-      buildPrompt(
-        prompt +
-        " Final cinematic shot. Strong visual ending.",
-        style
-      )
-
-    ];
+      );
 
 
     const s1 =
-      scenePrompts[0];
+      mainPrompt +
+      "\n\nScene 1: Establishing shot. Cinematic composition and natural movement.";
+
 
     const s2 =
-      scenePrompts[1];
+      mainPrompt +
+      "\n\nScene 2: Medium cinematic shot. Smooth camera movement and realistic action.";
+
 
     const s3 =
-      scenePrompts[2];
+      mainPrompt +
+      "\n\nScene 3: Close cinematic shot. Detailed subject movement and atmosphere.";
+
 
     const s4 =
-      scenePrompts[3];
+      mainPrompt +
+      "\n\nScene 4: Final cinematic shot. Strong visual ending and smooth camera movement.";
+
+
+    setStatus(
+      "Sending your prompt to the AI...",
+      "The video engine is now processing your request.",
+      22
+    );
 
 
     /*
-      Call the exact Text-to-Video endpoint
-      from the API schema you provided.
+      IMPORTANT:
+
+      The values below are deliberately
+      numbers where the Omni API expects
+      numbers.
+
+      OLD:
+      String(sceneCount)
+      String(secondsPerScene)
+      String(resolution)
+
+      NEW:
+      sceneCount
+      secondsPerScene
+      resolution
     */
 
-    const response =
-      await app.predict(
-        "/_submit_t2v",
+    const job =
+      app.submit(
+        T2V_ENDPOINT,
         [
-          String(sceneCount),
-          String(secondsPerScene),
-          String(resolution),
+          sceneCount,
+          secondsPerScene,
+          resolution,
           format,
-          buildPrompt(
-            prompt,
-            style
-          ),
+          mainPrompt,
           s1,
           s2,
           s3,
@@ -1772,28 +2038,178 @@ async function(){
       );
 
 
-    setStatus(
-      "Video generated!",
-      "Preparing your video preview...",
-      96
-    );
+    let finalData =
+      null;
 
 
-    const videoUrl =
-      findVideoUrl(
-        response.data
-      );
+    /*
+      Listen to the actual Gradio job.
+
+      This is better than simply waiting
+      for predict() because video generation
+      can be queued and take time.
+    */
+
+    for await(
+      const message of job
+    ){
+
+      if(
+        message.type === "status"
+      ){
+
+        const status =
+          message;
 
 
-    if(!videoUrl){
+        console.log(
+          "VIZORA status:",
+          status
+        );
 
-      console.log(
-        "VIZORA API response:",
-        response.data
-      );
+
+        if(
+          status.stage ===
+          "pending"
+        ){
+
+          const position =
+            typeof status.position ===
+            "number"
+              ? status.position
+              : null;
+
+
+          if(
+            position !== null
+          ){
+
+            setStatus(
+              "Waiting in AI queue...",
+              "Queue position: " +
+              position +
+              ". Please wait.",
+              28
+            );
+
+          }
+
+          else{
+
+            setStatus(
+              "Waiting for AI engine...",
+              "Your request has been accepted.",
+              25
+            );
+
+          }
+
+        }
+
+
+        else if(
+          status.stage ===
+          "generating"
+        ){
+
+          let p =
+            45;
+
+
+          if(
+            status.progress_data &&
+            status.progress_data.length
+          ){
+
+            const progressItem =
+              status.progress_data[
+                status.progress_data.length - 1
+              ];
+
+
+            if(
+              typeof progressItem.progress ===
+              "number"
+            ){
+
+              p =
+                35 +
+                (
+                  progressItem.progress *
+                  55
+                );
+
+            }
+
+          }
+
+
+          setStatus(
+            "🎬 AI is generating your video...",
+            status.message ||
+            "The video model is working on your scenes.",
+            p
+          );
+
+        }
+
+
+        else if(
+          status.stage ===
+          "complete"
+        ){
+
+          setStatus(
+            "Video generation completed.",
+            "Preparing your video preview...",
+            96
+          );
+
+        }
+
+
+        else if(
+          status.stage ===
+          "error"
+        ){
+
+          throw new Error(
+            status.message ||
+            "The Hugging Face AI engine reported an error."
+          );
+
+        }
+
+      }
+
+
+      if(
+        message.type === "data"
+      ){
+
+        finalData =
+          message.data;
+
+
+        console.log(
+          "VIZORA final data:",
+          finalData
+        );
+
+      }
+
+    }
+
+
+    /*
+      If the iterator did not provide
+      data, treat that as a generation error.
+    */
+
+    if(!finalData){
 
       throw new Error(
-        "The AI engine completed, but the video file could not be located."
+        "The AI engine finished without returning a video result."
       );
 
     }
@@ -1802,10 +2218,38 @@ async function(){
     stopProgress();
 
 
+    const videoUrl =
+      findVideoUrl(
+        finalData
+      );
+
+
+    console.log(
+      "VIZORA video URL:",
+      videoUrl
+    );
+
+
+    if(!videoUrl){
+
+      console.error(
+        "Complete VIZORA response:",
+        finalData
+      );
+
+
+      throw new Error(
+        "The AI engine generated a result, but no video URL was returned."
+      );
+
+    }
+
+
     const progressBar =
       document.getElementById(
         "progressBar"
       );
+
 
     progressBar.style.width =
       "100%";
@@ -1827,8 +2271,8 @@ async function(){
       "🎉 VIZORA AI created your video!"
     );
 
-
   }
+
 
   catch(error){
 
@@ -1841,15 +2285,21 @@ async function(){
     stopProgress();
 
 
+    const friendly =
+      getFriendlyError(
+        error
+      );
+
+
     setStatus(
       "Generation could not be completed.",
-      getFriendlyError(error),
+      friendly,
       0
     );
 
 
     showMessage(
-      getFriendlyError(error)
+      friendly
     );
 
   }
@@ -1860,8 +2310,10 @@ async function(){
     currentJobRunning =
       false;
 
+
     button.disabled =
       false;
+
 
     button.textContent =
       "✨ GENERATE VIDEO";
@@ -1871,53 +2323,133 @@ async function(){
 };
 
 
-/* -------------------------------------------------------
-   ERROR MESSAGE
-------------------------------------------------------- */
+/* ========================================================
+   FRIENDLY ERRORS
+======================================================== */
 
-function getFriendlyError(error){
+function getFriendlyError(
+  error
+){
 
   const message =
     error &&
     error.message
       ? error.message
-      : String(error || "");
+      : String(
+          error || ""
+        );
+
+
+  const lower =
+    message.toLowerCase();
+
+
+  console.error(
+    "Original error:",
+    message
+  );
 
 
   if(
-    message
-      .toLowerCase()
-      .includes("quota")
+    lower.includes(
+      "quota"
+    ) ||
+    lower.includes(
+      "daily limit"
+    ) ||
+    lower.includes(
+      "rate limit"
+    )
   ){
 
     return(
-      "The Hugging Face AI engine has reached its available daily quota. Try again after the quota resets."
+      "The Hugging Face AI Space has reached its available limit. Please try again later."
     );
 
   }
 
 
   if(
-    message
-      .toLowerCase()
-      .includes("queue")
+    lower.includes(
+      "queue"
+    ) ||
+    lower.includes(
+      "busy"
+    )
   ){
 
     return(
-      "The AI engine is busy. Please try again shortly."
+      "The AI engine is busy right now. Please try again shortly."
     );
 
   }
 
 
   if(
-    message
-      .toLowerCase()
-      .includes("network")
+    lower.includes(
+      "network"
+    ) ||
+    lower.includes(
+      "fetch"
+    ) ||
+    lower.includes(
+      "failed to fetch"
+    )
   ){
 
     return(
-      "Network connection problem. Check your internet connection and try again."
+      "There is a connection problem between VIZORA and the AI engine. Please check your internet and try again."
+    );
+
+  }
+
+
+  if(
+    lower.includes(
+      "not found"
+    ) ||
+    lower.includes(
+      "404"
+    )
+  ){
+
+    return(
+      "The AI endpoint could not be found. The Hugging Face Space may have changed its API."
+    );
+
+  }
+
+
+  if(
+    lower.includes(
+      "unauthorized"
+    ) ||
+    lower.includes(
+      "authentication"
+    ) ||
+    lower.includes(
+      "401"
+    )
+  ){
+
+    return(
+      "The AI Space requires authentication. We need to adjust the connection before continuing."
+    );
+
+  }
+
+
+  if(
+    lower.includes(
+      "video url"
+    ) ||
+    lower.includes(
+      "video result"
+    )
+  ){
+
+    return(
+      "The AI finished processing, but VIZORA could not locate the returned video file."
     );
 
   }
@@ -1930,9 +2462,9 @@ function getFriendlyError(error){
 }
 
 
-/* -------------------------------------------------------
+/* ========================================================
    SHARE VIDEO
-------------------------------------------------------- */
+======================================================== */
 
 window.shareVideo =
 async function(){
@@ -1973,7 +2505,6 @@ async function(){
 
       /*
         User cancelled sharing.
-        No error message needed.
       */
 
     }
@@ -1988,6 +2519,7 @@ async function(){
     await navigator.clipboard.writeText(
       generatedVideoUrl
     );
+
 
     showMessage(
       "Video link copied to clipboard."
@@ -2006,9 +2538,9 @@ async function(){
 };
 
 
-/* -------------------------------------------------------
+/* ========================================================
    TOAST
-------------------------------------------------------- */
+======================================================== */
 
 window.showMessage =
 function(message){
@@ -2036,27 +2568,23 @@ function(message){
       );
 
     },
-    4000
+    4500
   );
 
 };
 
 
-/* -------------------------------------------------------
-   ENTER KEY SUPPORT
-------------------------------------------------------- */
+/* ========================================================
+   KEYBOARD SUPPORT
+======================================================== */
 
 document
-  .getElementById("prompt")
+  .getElementById(
+    "prompt"
+  )
   .addEventListener(
     "keydown",
     function(event){
-
-      /*
-        Ctrl + Enter or
-        Command + Enter
-        generates the video.
-      */
 
       if(
         event.key === "Enter" &&
@@ -2076,17 +2604,30 @@ document
   );
 
 
-/* -------------------------------------------------------
-   INITIAL MESSAGE
-------------------------------------------------------- */
+/* ========================================================
+   ENGINE STARTUP
+======================================================== */
 
 console.log(
-  "VIZORA AI engine loaded."
+  "================================="
 );
 
 console.log(
-  "Connected Space:",
+  "VIZORA AI ENGINE READY"
+);
+
+console.log(
+  "Space:",
   SPACE_NAME
+);
+
+console.log(
+  "Endpoint:",
+  T2V_ENDPOINT
+);
+
+console.log(
+  "================================="
 );
 
 </script>
