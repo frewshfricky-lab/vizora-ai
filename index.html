@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#08090d">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#08090d"
+>
 
 <title>VIZORA AI — AI Video Studio</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -29,7 +39,11 @@
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   background:
-    radial-gradient(circle at 50% -10%,#241344 0%,transparent 38%),
+    radial-gradient(
+      circle at 50% -10%,
+      #241344 0%,
+      transparent 38%
+    ),
     var(--bg);
   color:var(--text);
   min-height:100vh;
@@ -87,7 +101,11 @@ header{
   width:36px;
   height:36px;
   border-radius:50%;
-  background:linear-gradient(135deg,var(--purple),var(--pink));
+  background:linear-gradient(
+    135deg,
+    var(--purple),
+    var(--pink)
+  );
   display:flex;
   align-items:center;
   justify-content:center;
@@ -108,7 +126,11 @@ header{
 }
 
 .gradient{
-  background:linear-gradient(90deg,#a78bfa,#f472b6);
+  background:linear-gradient(
+    90deg,
+    #a78bfa,
+    #f472b6
+  );
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
@@ -184,7 +206,8 @@ header{
 
 .prompt:focus{
   border-color:var(--purple);
-  box-shadow:0 0 0 3px rgba(139,92,246,.10);
+  box-shadow:
+    0 0 0 3px rgba(139,92,246,.10);
 }
 
 .prompt::placeholder{
@@ -224,8 +247,13 @@ select{
   color:white;
   font-size:16px;
   font-weight:800;
-  background:linear-gradient(100deg,var(--purple),var(--pink));
-  box-shadow:0 12px 30px rgba(139,92,246,.18);
+  background:linear-gradient(
+    100deg,
+    var(--purple),
+    var(--pink)
+  );
+  box-shadow:
+    0 12px 30px rgba(139,92,246,.18);
 }
 
 .generate:hover{
@@ -259,7 +287,11 @@ select{
 .progress-bar{
   width:0%;
   height:100%;
-  background:linear-gradient(90deg,var(--purple),var(--pink));
+  background:linear-gradient(
+    90deg,
+    var(--purple),
+    var(--pink)
+  );
   transition:width .4s ease;
 }
 
@@ -273,33 +305,30 @@ select{
   margin-bottom:12px;
 }
 
-.video-placeholder{
-  aspect-ratio:9/16;
-  max-width:360px;
+.video-container{
+  width:100%;
+  max-width:700px;
   margin:auto;
-  border-radius:16px;
-  border:1px solid var(--border);
-  background:
-    radial-gradient(circle at center,#171225,#08090d 65%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:25px;
-  color:#747b8c;
 }
 
-.play{
-  width:64px;
-  height:64px;
-  border-radius:50%;
-  background:#1d1830;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 auto 16px;
-  color:#c4b5fd;
-  font-size:24px;
+.video-container video{
+  width:100%;
+  max-height:700px;
+  display:block;
+  margin:auto;
+  border-radius:16px;
+  background:#000;
+  border:1px solid var(--border);
+}
+
+.video-info{
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  background:#0b0d12;
+  color:var(--muted);
+  font-size:13px;
+  text-align:center;
 }
 
 .actions{
@@ -315,6 +344,21 @@ select{
   border-radius:10px;
   background:#11141c;
   color:white;
+  text-align:center;
+  text-decoration:none;
+}
+
+.action:hover{
+  background:#181c27;
+}
+
+.error-box{
+  padding:18px;
+  border-radius:12px;
+  background:#160d12;
+  border:1px solid #5c2637;
+  color:#f5b8c9;
+  line-height:1.5;
 }
 
 .features{
@@ -369,7 +413,9 @@ footer{
   position:fixed;
   bottom:22px;
   left:50%;
-  transform:translateX(-50%) translateY(20px);
+  transform:
+    translateX(-50%)
+    translateY(20px);
   background:#181b24;
   border:1px solid #333949;
   padding:12px 17px;
@@ -378,11 +424,15 @@ footer{
   pointer-events:none;
   transition:.3s;
   z-index:100;
+  max-width:90%;
+  text-align:center;
 }
 
 .toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+  transform:
+    translateX(-50%)
+    translateY(0);
 }
 
 @media(max-width:700px){
@@ -414,20 +464,39 @@ footer{
   .card{
     padding:15px;
   }
+
+  .actions{
+    flex-direction:column;
+  }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
 <header>
-  <div class="logo">VIZORA<span>AI</span></div>
+
+  <div class="logo">
+    VIZORA<span>AI</span>
+  </div>
 
   <div class="header-right">
-    <div class="free-badge">FREE STUDIO</div>
-    <div class="avatar">V</div>
+
+    <div class="free-badge">
+      FREE STUDIO
+    </div>
+
+    <div class="avatar">
+      V
+    </div>
+
   </div>
+
 </header>
+
 
 <section class="hero">
 
@@ -443,29 +512,44 @@ footer{
 
 </section>
 
+
 <section class="studio">
 
   <div class="tabs">
 
-    <button class="tab active" onclick="selectTab(this,'text')">
+    <button
+      class="tab active"
+      onclick="selectTab(this,'text')"
+    >
       ✍️ Text to Video
     </button>
 
-    <button class="tab" onclick="selectTab(this,'image')">
+    <button
+      class="tab"
+      onclick="selectTab(this,'image')"
+    >
       🖼️ Image to Video
     </button>
 
-    <button class="tab" onclick="selectTab(this,'story')">
+    <button
+      class="tab"
+      onclick="selectTab(this,'story')"
+    >
       📖 Story to Video
     </button>
 
   </div>
 
+
   <div class="card">
 
-    <label class="label" for="prompt">
+    <label
+      class="label"
+      for="prompt"
+    >
       Describe your video
     </label>
+
 
     <textarea
       id="prompt"
@@ -474,43 +558,102 @@ footer{
       placeholder="Example: A young African trader sits in a dark room watching XAUUSD on his laptop. Suddenly gold starts rising rapidly. He jumps from his chair and celebrates..."
     ></textarea>
 
+
     <div class="options">
 
+
       <div class="option">
-        <label>STYLE</label>
+
+        <label>
+          STYLE
+        </label>
 
         <select id="style">
-          <option>Cinematic</option>
-          <option>Realistic</option>
-          <option>Anime</option>
-          <option>3D Animation</option>
-          <option>Cartoon</option>
-          <option>Documentary</option>
+
+          <option value="Cinematic">
+            Cinematic
+          </option>
+
+          <option value="Realistic">
+            Realistic
+          </option>
+
+          <option value="Anime">
+            Anime
+          </option>
+
+          <option value="3D Animation">
+            3D Animation
+          </option>
+
+          <option value="Cartoon">
+            Cartoon
+          </option>
+
+          <option value="Documentary">
+            Documentary
+          </option>
+
         </select>
+
       </div>
 
+
       <div class="option">
-        <label>FORMAT</label>
+
+        <label>
+          FORMAT
+        </label>
 
         <select id="format">
-          <option value="9:16">9:16 — TikTok / Reels</option>
-          <option value="16:9">16:9 — YouTube</option>
-          <option value="1:1">1:1 — Social</option>
+
+          <option value="9:16">
+            9:16 — TikTok / Reels
+          </option>
+
+          <option value="16:9">
+            16:9 — YouTube
+          </option>
+
+          <option value="1:1">
+            1:1 — Social
+          </option>
+
         </select>
+
       </div>
 
+
       <div class="option">
-        <label>DURATION</label>
+
+        <label>
+          DURATION
+        </label>
 
         <select id="duration">
-          <option value="5">5 seconds</option>
-          <option value="10">10 seconds</option>
-          <option value="15">15 seconds</option>
-          <option value="30">30 seconds</option>
+
+          <option value="5">
+            5 seconds
+          </option>
+
+          <option value="10">
+            10 seconds
+          </option>
+
+          <option value="15">
+            15 seconds
+          </option>
+
+          <option value="30">
+            30 seconds
+          </option>
+
         </select>
+
       </div>
 
     </div>
+
 
     <button
       class="generate"
@@ -520,199 +663,823 @@ footer{
       ✨ GENERATE VIDEO
     </button>
 
-    <div class="status" id="status">
+
+    <div
+      class="status"
+      id="status"
+    >
 
       <div id="statusText">
         Preparing your video...
       </div>
 
       <div class="progress">
-        <div class="progress-bar" id="progressBar"></div>
+
+        <div
+          class="progress-bar"
+          id="progressBar"
+        ></div>
+
       </div>
 
     </div>
 
-    <div class="result" id="result">
 
-      <div class="result-title">
-        🎬 Video Preview
+    <div
+      class="result"
+      id="result"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<section class="features">
+
+  <h2>
+    Everything starts with an idea.
+  </h2>
+
+
+  <div class="feature-grid">
+
+
+    <div class="feature">
+
+      <div class="icon">
+        ✍️
       </div>
 
-      <div class="video-placeholder">
+      <h3>
+        Text to Video
+      </h3>
 
-        <div>
+      <p>
+        Describe a scene and turn your words
+        into an AI-generated video.
+      </p>
 
-          <div class="play">▶</div>
+    </div>
 
-          <strong>Your video will appear here.</strong>
 
-          <br><br>
+    <div class="feature">
 
-          <small>
-            Our real AI video engine will be connected next.
-          </small>
+      <div class="icon">
+        🖼️
+      </div>
+
+      <h3>
+        Image to Video
+      </h3>
+
+      <p>
+        Animate your images and bring still
+        pictures to life.
+      </p>
+
+    </div>
+
+
+    <div class="feature">
+
+      <div class="icon">
+        📖
+      </div>
+
+      <h3>
+        Story to Video
+      </h3>
+
+      <p>
+        Turn an entire story into scenes,
+        narration and cinematic video.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  © 2026 VIZORA AI — Turn imagination into video.
+
+</footer>
+
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<script>
+
+/* =========================================================
+   VIZORA AI
+   REAL TEXT-TO-VIDEO ENGINE
+   =========================================================
+
+   Engine:
+   Hugging Face / Gradio
+
+   Space:
+   Saravutw/Omni-videos-custom
+
+   Text-to-video endpoint:
+   /_submit_t2v
+
+   ========================================================= */
+
+
+/* =========================================================
+   TAB SYSTEM
+   ========================================================= */
+
+function selectTab(button,type){
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(function(tab){
+
+      tab.classList.remove("active");
+
+    });
+
+
+  button.classList.add("active");
+
+
+  const prompt =
+    document.getElementById("prompt");
+
+
+  if(type === "image"){
+
+    prompt.placeholder =
+      "Image to Video will let you upload an image and describe how you want it animated...";
+
+    showMessage(
+      "Image-to-Video is coming next. Text-to-Video is active now."
+    );
+
+  }
+
+  else if(type === "story"){
+
+    prompt.placeholder =
+      "Write your story here. VIZORA AI will eventually break it into scenes...";
+
+    showMessage(
+      "Story-to-Video is coming next. Text-to-Video is active now."
+    );
+
+  }
+
+  else{
+
+    prompt.placeholder =
+      "Example: A young African trader sits in a dark room watching XAUUSD on his laptop. Suddenly gold starts rising rapidly...";
+
+  }
+
+}
+
+
+/* =========================================================
+   GET SCENE SETTINGS FROM DURATION
+   ========================================================= */
+
+function getSceneSettings(duration){
+
+  /*
+    Omni Video Factory accepts:
+
+    scene_count:
+    1, 2, 3 or 4
+
+    seconds_per_scene:
+    3 or 5
+
+    We use 5 seconds per scene.
+
+    Therefore:
+
+    5 sec  = 1 scene
+    10 sec = 2 scenes
+    15 sec = 3 scenes
+    30 sec = 4 scenes
+  */
+
+
+  const value =
+    parseInt(duration,10);
+
+
+  if(value === 10){
+
+    return {
+      sceneCount:"2",
+      secondsPerScene:"5"
+    };
+
+  }
+
+
+  if(value === 15){
+
+    return {
+      sceneCount:"3",
+      secondsPerScene:"5"
+    };
+
+  }
+
+
+  if(value === 30){
+
+    return {
+      sceneCount:"4",
+      secondsPerScene:"5"
+    };
+
+  }
+
+
+  return {
+    sceneCount:"1",
+    secondsPerScene:"5"
+  };
+
+}
+
+
+/* =========================================================
+   REAL VIDEO GENERATION
+   ========================================================= */
+
+async function generateVideo(){
+
+  const promptElement =
+    document.getElementById("prompt");
+
+
+  if(!promptElement){
+
+    showMessage(
+      "VIZORA error: Prompt box was not found."
+    );
+
+    return;
+
+  }
+
+
+  const prompt =
+    promptElement.value.trim();
+
+
+  if(!prompt){
+
+    showMessage(
+      "Describe the video you want to create first."
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById("generateBtn");
+
+
+  const status =
+    document.getElementById("status");
+
+
+  const statusText =
+    document.getElementById("statusText");
+
+
+  const progress =
+    document.getElementById("progressBar");
+
+
+  const result =
+    document.getElementById("result");
+
+
+  const style =
+    document.getElementById("style").value;
+
+
+  const format =
+    document.getElementById("format").value;
+
+
+  const duration =
+    document.getElementById("duration").value;
+
+
+  const sceneSettings =
+    getSceneSettings(duration);
+
+
+  /*
+    Disable button while generation is running.
+  */
+
+  button.disabled = true;
+
+  button.innerText =
+    "⏳ GENERATING...";
+
+
+  status.style.display =
+    "block";
+
+
+  result.style.display =
+    "none";
+
+
+  result.innerHTML =
+    "";
+
+
+  progress.style.width =
+    "5%";
+
+
+  statusText.innerText =
+    "Connecting to VIZORA AI video engine...";
+
+
+  try{
+
+    /*
+      Load the official Gradio JavaScript client.
+
+      We load it dynamically so we don't need
+      another separate script tag in the HTML.
+    */
+
+    const gradioModule =
+      await import(
+        "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js"
+      );
+
+
+    const Client =
+      gradioModule.Client;
+
+
+    if(!Client){
+
+      throw new Error(
+        "The Gradio client could not be loaded."
+      );
+
+    }
+
+
+    progress.style.width =
+      "10%";
+
+
+    statusText.innerText =
+      "Connecting to the AI video engine...";
+
+
+    /*
+      Connect to the public Omni Video Factory Space.
+    */
+
+    const client =
+      await Client.connect(
+        "Saravutw/Omni-videos-custom"
+      );
+
+
+    progress.style.width =
+      "20%";
+
+
+    statusText.innerText =
+      "Preparing your video prompt...";
+
+
+    /*
+      Combine the user's prompt with the
+      selected visual style.
+
+      Example:
+
+      Cinematic, A young African trader...
+    */
+
+    const finalPrompt =
+      style +
+      " style, " +
+      prompt;
+
+
+    progress.style.width =
+      "30%";
+
+
+    statusText.innerText =
+      "Sending your idea to the AI...";
+
+
+    /*
+      Submit the Text-to-Video request.
+
+      Endpoint discovered from the Space API:
+
+      /run/_submit_t2v
+
+      Gradio Client uses:
+
+      /_submit_t2v
+    */
+
+    const response =
+      await client.predict(
+        "/_submit_t2v",
+        {
+          scene_count:
+            sceneSettings.sceneCount,
+
+          seconds_per_scene:
+            sceneSettings.secondsPerScene,
+
+          resolution:
+            "384",
+
+          aspect_ratio:
+            format,
+
+          base_prompt:
+            finalPrompt,
+
+          s1:
+            finalPrompt,
+
+          s2:
+            sceneSettings.sceneCount === "1"
+              ? ""
+              : finalPrompt,
+
+          s3:
+            sceneSettings.sceneCount === "1" ||
+            sceneSettings.sceneCount === "2"
+              ? ""
+              : finalPrompt,
+
+          s4:
+            sceneSettings.sceneCount === "4"
+              ? finalPrompt
+              : ""
+        }
+      );
+
+
+    progress.style.width =
+      "90%";
+
+
+    statusText.innerText =
+      "AI generation complete. Loading your video...";
+
+
+    /*
+      The API response has:
+
+      output
+      output_1 = video
+      output_2
+      output_3
+      output_4
+
+      We need output_1.
+    */
+
+    let videoData =
+      null;
+
+
+    if(
+      response &&
+      Array.isArray(response.data)
+    ){
+
+      videoData =
+        response.data[1];
+
+    }
+
+
+    /*
+      Some Gradio versions may return
+      the object directly.
+    */
+
+    if(
+      !videoData &&
+      response &&
+      response.video
+    ){
+
+      videoData =
+        response.video;
+
+    }
+
+
+    if(!videoData){
+
+      throw new Error(
+        "The AI engine responded, but no video file was returned."
+      );
+
+    }
+
+
+    /*
+      Extract the video URL.
+    */
+
+    let videoUrl =
+      null;
+
+
+    if(
+      typeof videoData ===
+      "string"
+    ){
+
+      videoUrl =
+        videoData;
+
+    }
+
+
+    if(
+      videoData &&
+      typeof videoData ===
+      "object"
+    ){
+
+      if(videoData.url){
+
+        videoUrl =
+          videoData.url;
+
+      }
+
+      else if(videoData.path){
+
+        videoUrl =
+          videoData.path;
+
+      }
+
+    }
+
+
+    if(!videoUrl){
+
+      throw new Error(
+        "The video was generated, but VIZORA could not find the video URL."
+      );
+
+    }
+
+
+    progress.style.width =
+      "100%";
+
+
+    statusText.innerText =
+      "🎉 Your video is ready!";
+
+
+    /*
+      Display the actual generated video.
+    */
+
+    result.style.display =
+      "block";
+
+
+    result.innerHTML = `
+
+      <div class="result-title">
+        🎬 Your VIZORA AI Video
+      </div>
+
+      <div class="video-container">
+
+        <video
+          controls
+          playsinline
+          preload="metadata"
+        >
+
+          <source
+            src="${videoUrl}"
+            type="video/mp4"
+          >
+
+          Your browser does not support video playback.
+
+        </video>
+
+        <div class="video-info">
+
+          ${duration} second video
+          • ${style}
+          • ${format}
+
+        </div>
+
+        <div class="actions">
+
+          <a
+            class="action"
+            href="${videoUrl}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ▶️ Open Video
+          </a>
+
+          <a
+            class="action"
+            href="${videoUrl}"
+            download="vizora-ai-video.mp4"
+          >
+            📥 Download
+          </a>
 
         </div>
 
       </div>
 
-      <div class="actions">
+    `;
 
-        <button class="action" onclick="showMessage('Download will be available when the AI engine is connected.')">
-          📥 Download
-        </button>
 
-        <button class="action" onclick="showMessage('Sharing will be available after generation is connected.')">
-          ↗️ Share
-        </button>
+    showMessage(
+      "🎉 VIZORA successfully generated your video!"
+    );
 
-      </div>
 
-    </div>
-
-  </div>
-
-</section>
-
-<section class="features">
-
-  <h2>Everything starts with an idea.</h2>
-
-  <div class="feature-grid">
-
-    <div class="feature">
-      <div class="icon">✍️</div>
-      <h3>Text to Video</h3>
-      <p>
-        Describe a scene and turn your words into an AI-generated video.
-      </p>
-    </div>
-
-    <div class="feature">
-      <div class="icon">🖼️</div>
-      <h3>Image to Video</h3>
-      <p>
-        Animate your images and bring still pictures to life.
-      </p>
-    </div>
-
-    <div class="feature">
-      <div class="icon">📖</div>
-      <h3>Story to Video</h3>
-      <p>
-        Turn an entire story into scenes, narration and cinematic video.
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-<footer>
-  © 2026 VIZORA AI — Turn imagination into video.
-</footer>
-
-<div class="toast" id="toast"></div>
-
-<script>
-
-function selectTab(button,type){
-
-  document.querySelectorAll(".tab").forEach(function(tab){
-    tab.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  const prompt=document.getElementById("prompt");
-
-  if(type==="image"){
-    prompt.placeholder=
-      "Image to Video will let you upload an image and describe how you want it animated...";
   }
 
-  else if(type==="story"){
-    prompt.placeholder=
-      "Write your story here. VIZORA AI will eventually break it into scenes...";
-  }
+  catch(error){
 
-  else{
-    prompt.placeholder=
-      "Example: A young African trader sits in a dark room watching XAUUSD on his laptop. Suddenly gold starts rising rapidly...";
-  }
-}
+    console.error(
+      "VIZORA VIDEO ERROR:",
+      error
+    );
 
-function generateVideo(){
 
-  const prompt=document.getElementById("prompt").value.trim();
+    progress.style.width =
+      "0%";
 
-  if(!prompt){
-    showMessage("Describe the video you want to create first.");
-    return;
-  }
 
-  const button=document.getElementById("generateBtn");
-  const status=document.getElementById("status");
-  const statusText=document.getElementById("statusText");
-  const progress=document.getElementById("progressBar");
-  const result=document.getElementById("result");
+    statusText.innerText =
+      "Video generation failed.";
 
-  button.disabled=true;
-  status.style.display="block";
-  result.style.display="none";
 
-  let percent=0;
+    let errorMessage =
+      "Something went wrong while creating your video.";
 
-  const messages=[
-    "Analyzing your idea...",
-    "Preparing your scene...",
-    "Planning camera movement...",
-    "Preparing AI generation...",
-    "Almost ready..."
-  ];
 
-  let step=0;
+    if(
+      error &&
+      error.message
+    ){
 
-  const timer=setInterval(function(){
-
-    percent+=20;
-
-    progress.style.width=percent+"%";
-
-    statusText.textContent=messages[step] || "Preparing your video...";
-
-    step++;
-
-    if(percent>=100){
-
-      clearInterval(timer);
-
-      setTimeout(function(){
-
-        statusText.textContent=
-          "Prototype ready — AI video engine is the next connection.";
-
-        result.style.display="block";
-
-        button.disabled=false;
-
-      },500);
+      errorMessage =
+        error.message;
 
     }
 
-  },500);
+
+    /*
+      Make common quota errors easier
+      for the user to understand.
+    */
+
+    const lowerError =
+      errorMessage.toLowerCase();
+
+
+    if(
+      lowerError.includes("quota") ||
+      lowerError.includes("limit") ||
+      lowerError.includes("zerogpu")
+    ){
+
+      errorMessage =
+        "The free AI video engine has reached its current daily GPU limit. Please try again after the quota resets.";
+
+    }
+
+
+    if(
+      lowerError.includes("queue")
+    ){
+
+      errorMessage =
+        "The free AI video engine is currently busy. Please try again later.";
+
+    }
+
+
+    result.style.display =
+      "block";
+
+
+    result.innerHTML = `
+
+      <div class="error-box">
+
+        <strong>
+          VIZORA AI could not generate the video.
+        </strong>
+
+        <br><br>
+
+        ${errorMessage}
+
+        <br><br>
+
+        <small>
+          This message comes from the video engine.
+          Your VIZORA website is still working.
+        </small>
+
+      </div>
+
+    `;
+
+
+    showMessage(
+      "Video generation failed. Check the message below."
+    );
+
+
+  }
+
+  finally{
+
+    button.disabled =
+      false;
+
+
+    button.innerText =
+      "✨ GENERATE VIDEO";
+
+  }
+
 }
+
+
+/* =========================================================
+   TOAST MESSAGE
+   ========================================================= */
 
 function showMessage(message){
 
-  const toast=document.getElementById("toast");
+  const toast =
+    document.getElementById("toast");
 
-  toast.textContent=message;
-  toast.classList.add("show");
+
+  toast.textContent =
+    message;
+
+
+  toast.classList.add(
+    "show"
+  );
+
 
   setTimeout(function(){
-    toast.classList.remove("show");
-  },3000);
+
+    toast.classList.remove(
+      "show"
+    );
+
+  },4000);
+
 }
 
 </script>
