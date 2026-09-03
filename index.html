@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#08090d">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#07080c"
+>
 
 <title>VIZORA AI — AI Video Studio</title>
 
@@ -28,11 +38,26 @@
   --red:#ef4444;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
   background:
-    radial-gradient(circle at 50% -10%,#241344 0%,transparent 38%),
+    radial-gradient(
+      circle at 50% -10%,
+      #241344 0%,
+      transparent 38%
+    ),
     var(--bg);
+
   color:var(--text);
   min-height:100vh;
 }
@@ -47,16 +72,26 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  cursor:not-allowed;
+}
+
+/* HEADER */
+
 header{
   height:72px;
   padding:0 22px;
+
   border-bottom:1px solid var(--border);
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   position:sticky;
   top:0;
   z-index:20;
+
   background:rgba(7,8,12,.88);
   backdrop-filter:blur(15px);
 }
@@ -79,62 +114,105 @@ header{
 
 .free-badge{
   border:1px solid #303646;
+
   padding:7px 11px;
+
   border-radius:30px;
+
   color:#b8becd;
+
   font-size:12px;
 }
 
 .avatar{
   width:36px;
   height:36px;
+
   border-radius:50%;
-  background:linear-gradient(135deg,var(--purple),var(--pink));
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--purple),
+      var(--pink)
+    );
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-weight:800;
 }
+
+/* HERO */
 
 .hero{
   max-width:900px;
   margin:auto;
+
   text-align:center;
+
   padding:58px 20px 35px;
 }
 
 .hero h1{
-  font-size:clamp(42px,9vw,72px);
+  font-size:
+    clamp(
+      42px,
+      9vw,
+      72px
+    );
+
   line-height:.98;
+
   letter-spacing:-3px;
 }
 
 .gradient{
-  background:linear-gradient(90deg,#a78bfa,#f472b6);
+  background:
+    linear-gradient(
+      90deg,
+      #a78bfa,
+      #f472b6
+    );
+
   -webkit-background-clip:text;
   background-clip:text;
+
   color:transparent;
 }
 
 .hero p{
   color:var(--muted);
+
   max-width:650px;
+
   margin:20px auto 0;
+
   line-height:1.6;
+
   font-size:16px;
 }
 
+/* STUDIO */
+
 .studio{
   max-width:960px;
+
   margin:0 auto 70px;
+
   padding:0 16px;
 }
 
 .tabs{
   display:flex;
+
   gap:8px;
+
   margin-bottom:15px;
+
   overflow-x:auto;
+
   scrollbar-width:none;
 }
 
@@ -144,225 +222,416 @@ header{
 
 .tab{
   white-space:nowrap;
+
   border:1px solid var(--border);
+
   background:var(--panel);
+
   color:#9ca3b5;
+
   padding:11px 17px;
+
   border-radius:10px;
 }
 
 .tab.active{
   color:white;
+
   border-color:#5b3ca5;
+
   background:#1b1430;
 }
 
+/* CARD */
+
 .card{
-  background:rgba(16,18,25,.92);
+  background:
+    rgba(
+      16,
+      18,
+      25,
+      .92
+    );
+
   border:1px solid var(--border);
+
   border-radius:20px;
+
   padding:20px;
 }
 
 .label{
   display:block;
+
   font-size:14px;
+
   font-weight:700;
+
   margin-bottom:10px;
 }
 
+/* PROMPT */
+
 .prompt{
   width:100%;
+
   min-height:180px;
+
   resize:vertical;
+
   background:#090a0f;
+
   color:white;
+
   border:1px solid #2b3040;
+
   border-radius:14px;
+
   padding:17px;
+
   outline:none;
+
   line-height:1.55;
 }
 
 .prompt:focus{
   border-color:var(--purple);
-  box-shadow:0 0 0 3px rgba(139,92,246,.10);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      139,
+      92,
+      246,
+      .10
+    );
 }
 
 .prompt::placeholder{
   color:#656c7d;
 }
 
+/* OPTIONS */
+
 .options{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(
+      3,
+      1fr
+    );
+
   gap:12px;
+
   margin-top:16px;
 }
 
 .option label{
   display:block;
+
   font-size:12px;
+
   color:var(--muted);
+
   margin-bottom:7px;
 }
 
 select{
   width:100%;
+
   background:#090a0f;
+
   color:white;
+
   border:1px solid #2b3040;
+
   border-radius:10px;
+
   padding:13px;
+
   outline:none;
 }
 
+/* GENERATE */
+
 .generate{
   width:100%;
+
   margin-top:18px;
+
   border:0;
+
   border-radius:13px;
+
   padding:17px;
+
   color:white;
+
   font-size:16px;
+
   font-weight:800;
-  background:linear-gradient(100deg,var(--purple),var(--pink));
-  box-shadow:0 12px 30px rgba(139,92,246,.18);
+
+  background:
+    linear-gradient(
+      100deg,
+      var(--purple),
+      var(--pink)
+    );
+
+  box-shadow:
+    0 12px 30px
+    rgba(
+      139,
+      92,
+      246,
+      .18
+    );
+
+  transition:
+    transform .2s,
+    filter .2s,
+    opacity .2s;
 }
 
 .generate:hover{
   filter:brightness(1.08);
+
+  transform:translateY(-1px);
 }
 
 .generate:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+  opacity:.55;
+
+  transform:none;
 }
+
+/* STATUS */
 
 .status{
   display:none;
+
   margin-top:15px;
-  padding:16px;
+
+  padding:18px;
+
   background:#0b0d12;
+
   border:1px solid var(--border);
+
   border-radius:12px;
+
   color:#aeb5c5;
+
   text-align:center;
 }
 
-.status-title{
+.status-main{
   font-weight:700;
-  margin-bottom:6px;
+
+  color:#d8dced;
 }
 
-.status-sub{
-  font-size:12px;
-  color:#777f91;
+.status-small{
   margin-top:7px;
+
+  color:#72798b;
+
+  font-size:12px;
+
+  line-height:1.5;
 }
 
 .progress{
   height:6px;
+
   background:#202431;
+
   border-radius:20px;
+
   overflow:hidden;
+
   margin-top:14px;
 }
 
 .progress-bar{
-  width:3%;
+  width:0%;
+
   height:100%;
-  background:linear-gradient(90deg,var(--purple),var(--pink));
-  transition:width .5s ease;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--purple),
+      var(--pink)
+    );
+
+  transition:
+    width .5s ease;
 }
+
+/* RESULT */
 
 .result{
   display:none;
+
   margin-top:20px;
+
+  animation:
+    resultIn .4s ease;
+}
+
+@keyframes resultIn{
+
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
 }
 
 .result-title{
   font-weight:800;
+
   margin-bottom:12px;
 }
 
 .video-box{
   width:100%;
-  max-width:650px;
+
+  max-width:720px;
+
   margin:auto;
+
   border-radius:16px;
-  border:1px solid var(--border);
-  background:#050609;
+
   overflow:hidden;
+
+  border:1px solid var(--border);
+
+  background:#05060a;
 }
 
 .video-box video{
-  width:100%;
   display:block;
-  max-height:700px;
+
+  width:100%;
+
+  max-height:720px;
+
   background:#000;
 }
 
+.video-placeholder{
+  padding:40px 20px;
+
+  text-align:center;
+
+  color:#747b8c;
+}
+
+.play{
+  width:64px;
+
+  height:64px;
+
+  border-radius:50%;
+
+  background:#1d1830;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  margin:0 auto 16px;
+
+  color:#c4b5fd;
+
+  font-size:24px;
+}
+
+/* ACTIONS */
+
 .actions{
   display:flex;
+
   gap:10px;
+
   margin-top:12px;
 }
 
 .action{
   flex:1;
+
   padding:13px;
+
   border:1px solid var(--border);
+
   border-radius:10px;
+
   background:#11141c;
+
   color:white;
+
   text-align:center;
+
   text-decoration:none;
 }
 
 .action:hover{
-  background:#181c26;
+  background:#191d28;
 }
 
-.error-box{
-  display:none;
-  margin-top:15px;
-  padding:15px;
-  border:1px solid rgba(239,68,68,.35);
-  background:rgba(239,68,68,.08);
-  border-radius:12px;
-  color:#fca5a5;
-  line-height:1.5;
-  font-size:14px;
-}
+/* FEATURES */
 
 .features{
   max-width:960px;
+
   margin:0 auto 70px;
+
   padding:0 16px;
 }
 
 .features h2{
   text-align:center;
+
   font-size:30px;
+
   margin-bottom:25px;
 }
 
 .feature-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(
+      3,
+      1fr
+    );
+
   gap:14px;
 }
 
 .feature{
   background:var(--panel);
+
   border:1px solid var(--border);
+
   border-radius:15px;
+
   padding:20px;
 }
 
 .icon{
   font-size:25px;
+
   margin-bottom:12px;
 }
 
@@ -372,39 +641,73 @@ select{
 
 .feature p{
   color:var(--muted);
+
   line-height:1.5;
+
   font-size:14px;
 }
 
+/* FOOTER */
+
 footer{
   border-top:1px solid var(--border);
+
   padding:28px 20px;
+
   text-align:center;
+
   color:#62697a;
+
   font-size:12px;
 }
 
+/* TOAST */
+
 .toast{
   position:fixed;
+
   bottom:22px;
+
   left:50%;
-  transform:translateX(-50%) translateY(20px);
+
+  transform:
+    translateX(-50%)
+    translateY(20px);
+
   background:#181b24;
+
   border:1px solid #333949;
+
   padding:12px 17px;
+
   border-radius:10px;
+
   opacity:0;
+
   pointer-events:none;
+
   transition:.3s;
+
   z-index:100;
-  max-width:90%;
+
+  width:
+    min(
+      90%,
+      430px
+    );
+
   text-align:center;
 }
 
 .toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+
+  transform:
+    translateX(-50%)
+    translateY(0);
 }
+
+/* MOBILE */
 
 @media(max-width:700px){
 
@@ -440,13 +743,19 @@ footer{
     flex-direction:column;
   }
 
+  .action{
+    width:100%;
+  }
+
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -477,14 +786,15 @@ footer{
   </h1>
 
   <p>
-    Describe your idea. VIZORA AI will turn your imagination
-    into cinematic video.
+    Describe your idea. VIZORA AI turns your imagination
+    into AI-generated video.
   </p>
 
 </section>
 
 
 <section class="studio">
+
 
   <div class="tabs">
 
@@ -514,9 +824,14 @@ footer{
 
   <div class="card">
 
-    <label class="label" for="prompt">
+
+    <label
+      class="label"
+      for="prompt"
+    >
       Describe your video
     </label>
+
 
     <textarea
       id="prompt"
@@ -528,9 +843,12 @@ footer{
 
     <div class="options">
 
+
       <div class="option">
 
-        <label>STYLE</label>
+        <label>
+          STYLE
+        </label>
 
         <select id="style">
 
@@ -565,7 +883,9 @@ footer{
 
       <div class="option">
 
-        <label>FORMAT</label>
+        <label>
+          FORMAT
+        </label>
 
         <select id="format">
 
@@ -588,7 +908,9 @@ footer{
 
       <div class="option">
 
-        <label>DURATION</label>
+        <label>
+          DURATION
+        </label>
 
         <select id="duration">
 
@@ -604,13 +926,14 @@ footer{
             15 seconds
           </option>
 
-          <option value="20">
-            20 seconds
+          <option value="30">
+            30 seconds
           </option>
 
         </select>
 
       </div>
+
 
     </div>
 
@@ -624,18 +947,28 @@ footer{
     </button>
 
 
-    <div class="status" id="status">
+    <div
+      class="status"
+      id="status"
+    >
 
       <div
-        class="status-title"
+        class="status-main"
         id="statusText"
       >
         Connecting to VIZORA AI engine...
       </div>
 
+
       <div
-        class="progress"
+        class="status-small"
+        id="statusSmall"
       >
+        Preparing your request.
+      </div>
+
+
+      <div class="progress">
 
         <div
           class="progress-bar"
@@ -644,20 +977,7 @@ footer{
 
       </div>
 
-      <div
-        class="status-sub"
-        id="statusSub"
-      >
-        Connecting to the free Hugging Face video engine.
-      </div>
-
     </div>
-
-
-    <div
-      class="error-box"
-      id="errorBox"
-    ></div>
 
 
     <div
@@ -666,42 +986,57 @@ footer{
     >
 
       <div class="result-title">
-        🎬 Your AI Video
+        🎬 Your VIZORA AI Video
       </div>
 
-      <div class="video-box">
 
-        <video
-          id="videoPlayer"
-          controls
-          playsinline
-        ></video>
+      <div
+        class="video-box"
+        id="videoBox"
+      >
+
+        <div class="video-placeholder">
+
+          <div class="play">
+            ▶
+          </div>
+
+          <strong>
+            Your video will appear here.
+          </strong>
+
+        </div>
 
       </div>
 
 
       <div class="actions">
 
+
         <a
           class="action"
           id="downloadBtn"
           href="#"
-          target="_blank"
-          download
+          download="vizora-ai-video.mp4"
+          style="display:none;"
         >
           📥 Download Video
         </a>
 
+
         <button
           class="action"
+          id="shareBtn"
           onclick="shareVideo()"
         >
-          ↗️ Share
+          ↗️ Share Video
         </button>
+
 
       </div>
 
     </div>
+
 
   </div>
 
@@ -714,7 +1049,9 @@ footer{
     Everything starts with an idea.
   </h2>
 
+
   <div class="feature-grid">
+
 
     <div class="feature">
 
@@ -745,8 +1082,8 @@ footer{
       </h3>
 
       <p>
-        Animate your images and bring still
-        pictures to life.
+        Animate your images and bring
+        still pictures to life.
       </p>
 
     </div>
@@ -769,6 +1106,7 @@ footer{
 
     </div>
 
+
   </div>
 
 </section>
@@ -776,7 +1114,8 @@ footer{
 
 <footer>
 
-  © 2026 VIZORA AI — Turn imagination into video.
+  © 2026 VIZORA AI —
+  Turn imagination into video.
 
 </footer>
 
@@ -789,649 +1128,72 @@ footer{
 
 <script type="module">
 
-import { Client } from
-"https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
-
 
 /*
-========================================================
-VIZORA AI ENGINE
-Hugging Face Space:
+=========================================================
+ VIZORA AI
+ REAL HUGGING FACE VIDEO ENGINE
+=========================================================
+
+SPACE:
+
 Saravutw/Omni-videos-custom
 
-Text-to-video endpoint:
- /_submit_t2v
-========================================================
+CURRENT T2V INPUTS:
+
+1. Scene Count
+2. Seconds Per Scene
+3. Resolution
+4. Aspect Ratio
+5. Base Prompt
+6. Scene 1
+7. Scene 2
+8. Scene 3
+9. Scene 4
+
+We intentionally start with:
+
+Scene Count = 1
+Seconds = 5
+Resolution = 384
+
+This is the safest lightweight test.
+
+=========================================================
 */
 
 
+import {
+  Client
+} from
+"https://cdn.jsdelivr.net/npm/@gradio/client@1.16.0/dist/index.min.js";
+
+
+/* ------------------------------------------------------
+   SPACE
+------------------------------------------------------ */
+
 const SPACE =
-"Saravutw/Omni-videos-custom";
+  "Saravutw/Omni-videos-custom";
 
-const ENDPOINT =
-"/_submit_t2v";
 
+/* ------------------------------------------------------
+   STATE
+------------------------------------------------------ */
 
-let currentVideoUrl = "";
+let generatedVideoUrl = "";
 
+let generating = false;
 
-function getElements(){
+let progressTimer = null;
 
-  return {
 
-    prompt:
-      document.getElementById("prompt"),
+/* ------------------------------------------------------
+   TAB SYSTEM
+------------------------------------------------------ */
 
-    style:
-      document.getElementById("style"),
-
-    format:
-      document.getElementById("format"),
-
-    duration:
-      document.getElementById("duration"),
-
-    button:
-      document.getElementById("generateBtn"),
-
-    status:
-      document.getElementById("status"),
-
-    statusText:
-      document.getElementById("statusText"),
-
-    statusSub:
-      document.getElementById("statusSub"),
-
-    progress:
-      document.getElementById("progressBar"),
-
-    result:
-      document.getElementById("result"),
-
-    error:
-      document.getElementById("errorBox"),
-
-    video:
-      document.getElementById("videoPlayer"),
-
-    download:
-      document.getElementById("downloadBtn")
-
-  };
-
-}
-
-
-function setProgress(percent){
-
-  const el = getElements();
-
-  el.progress.style.width =
-    Math.max(3,Math.min(100,percent)) + "%";
-
-}
-
-
-function setStatus(title,sub,percent){
-
-  const el = getElements();
-
-  el.statusText.textContent = title;
-
-  el.statusSub.textContent = sub;
-
-  setProgress(percent);
-
-}
-
-
-function showError(message){
-
-  const el = getElements();
-
-  el.error.style.display = "block";
-
-  el.error.textContent =
-    "⚠️ " + message;
-
-}
-
-
-function hideError(){
-
-  getElements().error.style.display =
-    "none";
-
-}
-
-
-function getSceneSettings(duration){
-
-  /*
-    Omni Video Factory supports:
-    1–4 scenes
-    3 or 5 seconds per scene
-
-    We use 5 seconds per scene
-    because it is the simplest and
-    safest configuration.
-
-    5 sec  = 1 scene
-    10 sec = 2 scenes
-    15 sec = 3 scenes
-    20 sec = 4 scenes
-  */
-
-  const seconds =
-    Number(duration);
-
-  if(seconds === 5){
-
-    return {
-      sceneCount:1,
-      secondsPerScene:5
-    };
-
-  }
-
-  if(seconds === 10){
-
-    return {
-      sceneCount:2,
-      secondsPerScene:5
-    };
-
-  }
-
-  if(seconds === 15){
-
-    return {
-      sceneCount:3,
-      secondsPerScene:5
-    };
-
-  }
-
-  return {
-    sceneCount:4,
-    secondsPerScene:5
-  };
-
-}
-
-
-function buildScenePrompts(
-  basePrompt,
-  style,
-  sceneCount
-){
-
-  const scenes = [];
-
-  const styleText =
-    style +
-    " visual style, cinematic lighting, detailed environment, high quality video";
-
-  for(let i=0;i<4;i++){
-
-    if(i < sceneCount){
-
-      scenes.push(
-        "Scene " +
-        (i+1) +
-        ": " +
-        basePrompt +
-        ". " +
-        styleText +
-        ". Keep the main subject visually consistent."
-      );
-
-    }else{
-
-      scenes.push("");
-
-    }
-
-  }
-
-  return scenes;
-
-}
-
-
-function findVideoUrl(value){
-
-  /*
-    The Gradio result can have slightly
-    different structures depending on
-    the version of Gradio.
-
-    This function searches the returned
-    data for a usable video URL.
-  */
-
-  if(!value){
-    return null;
-  }
-
-
-  if(typeof value === "string"){
-
-    if(
-      value.startsWith("http://") ||
-      value.startsWith("https://") ||
-      value.startsWith("blob:")
-    ){
-
-      return value;
-
-    }
-
-    return null;
-
-  }
-
-
-  if(Array.isArray(value)){
-
-    for(const item of value){
-
-      const found =
-        findVideoUrl(item);
-
-      if(found){
-        return found;
-      }
-
-    }
-
-    return null;
-
-  }
-
-
-  if(typeof value === "object"){
-
-    const possibleKeys = [
-      "url",
-      "video",
-      "path",
-      "data"
-    ];
-
-
-    for(const key of possibleKeys){
-
-      if(value[key]){
-
-        const found =
-          findVideoUrl(value[key]);
-
-        if(found){
-          return found;
-        }
-
-      }
-
-    }
-
-  }
-
-  return null;
-
-}
-
-
-async function generateVideo(){
-
-  const el = getElements();
-
-  const prompt =
-    el.prompt.value.trim();
-
-  if(!prompt){
-
-    showMessage(
-      "Describe the video you want to create first."
-    );
-
-    el.prompt.focus();
-
-    return;
-
-  }
-
-
-  hideError();
-
-  el.result.style.display =
-    "none";
-
-  el.button.disabled =
-    true;
-
-  el.status.style.display =
-    "block";
-
-
-  currentVideoUrl = "";
-
-
-  try{
-
-    setStatus(
-      "Connecting to VIZORA AI engine...",
-      "Opening the Hugging Face video model.",
-      5
-    );
-
-
-    /*
-      Connect to the public Hugging Face
-      Gradio Space.
-    */
-
-    const app =
-      await Client.connect(SPACE);
-
-
-    setStatus(
-      "Connected to AI engine.",
-      "Preparing your video request...",
-      12
-    );
-
-
-    const duration =
-      Number(el.duration.value);
-
-    const settings =
-      getSceneSettings(duration);
-
-
-    const scenePrompts =
-      buildScenePrompts(
-        prompt,
-        el.style.value,
-        settings.sceneCount
-      );
-
-
-    /*
-      Endpoint parameters from the
-      Omni Video Factory API:
-
-      scene_count
-      seconds_per_scene
-      resolution
-      aspect_ratio
-      base_prompt
-      s1
-      s2
-      s3
-      s4
-    */
-
-
-    const payload = [
-
-      settings.sceneCount,
-
-      settings.secondsPerScene,
-
-      384,
-
-      el.format.value,
-
-      prompt,
-
-      scenePrompts[0],
-
-      scenePrompts[1],
-
-      scenePrompts[2],
-
-      scenePrompts[3]
-
-    ];
-
-
-    setStatus(
-      "Sending your idea to the AI...",
-      "Your video has entered the generation queue.",
-      20
-    );
-
-
-    /*
-      submit() is used instead of predict()
-      so we can monitor generation status.
-    */
-
-    const job =
-      app.submit(
-        ENDPOINT,
-        payload
-      );
-
-
-    let lastProgress =
-      20;
-
-
-    for await(const message of job){
-
-      if(message.type === "status"){
-
-        /*
-          Gradio can provide queue information.
-        */
-
-        if(
-          typeof message.position === "number"
-        ){
-
-          setStatus(
-            "Video is in the AI queue...",
-            "Queue position: " +
-            message.position,
-            Math.min(
-              45,
-              25 + message.position
-            )
-          );
-
-        }else{
-
-          setStatus(
-            "AI is generating your video...",
-            "The model is working. Please keep this page open.",
-            Math.min(
-              85,
-              lastProgress + 5
-            )
-          );
-
-          lastProgress =
-            Math.min(
-              85,
-              lastProgress + 5
-            );
-
-        }
-
-      }
-
-
-      if(message.type === "data"){
-
-        setStatus(
-          "AI generation finished processing...",
-          "Preparing your video preview.",
-          92
-        );
-
-        const url =
-          findVideoUrl(
-            message.data
-          );
-
-
-        if(url){
-
-          currentVideoUrl =
-            url;
-
-        }
-
-      }
-
-    }
-
-
-    /*
-      Some Gradio versions provide
-      the final result after the iterator.
-    */
-
-    if(!currentVideoUrl){
-
-      try{
-
-        const finalResult =
-          await job.result();
-
-        currentVideoUrl =
-          findVideoUrl(
-            finalResult
-          );
-
-      }catch(resultError){
-
-        console.log(
-          "Final result lookup:",
-          resultError
-        );
-
-      }
-
-    }
-
-
-    if(!currentVideoUrl){
-
-      throw new Error(
-        "The AI finished, but the video file could not be retrieved. Please try again."
-      );
-
-    }
-
-
-    setProgress(100);
-
-    setStatus(
-      "🎉 Your video is ready!",
-      "VIZORA AI successfully received the generated video.",
-      100
-    );
-
-
-    el.video.src =
-      currentVideoUrl;
-
-    el.video.load();
-
-
-    el.download.href =
-      currentVideoUrl;
-
-    el.download.setAttribute(
-      "download",
-      "vizora-ai-video.mp4"
-    );
-
-
-    el.result.style.display =
-      "block";
-
-
-    setTimeout(function(){
-
-      el.result.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-      });
-
-    },300);
-
-
-  }catch(error){
-
-    console.error(
-      "VIZORA AI ERROR:",
-      error
-    );
-
-
-    let message =
-      error &&
-      error.message
-        ? error.message
-        : String(error);
-
-
-    if(
-      message.toLowerCase().includes("quota") ||
-      message.toLowerCase().includes("limit")
-    ){
-
-      message =
-        "The Hugging Face AI Space has reached its available daily compute quota. This is a limit of the free AI engine, not a problem with your VIZORA website.";
-
-    }
-
-
-    else if(
-      message.toLowerCase().includes("connect")
-    ){
-
-      message =
-        "VIZORA could not connect to the Hugging Face AI engine. Please make sure the Omni Video Space is running and try again.";
-
-    }
-
-
-    else{
-
-      message =
-        "The AI video engine returned an error: " +
-        message;
-
-    }
-
-
-    showError(message);
-
-
-    setStatus(
-      "Video generation stopped.",
-      "See the message below for details.",
-      0
-    );
-
-
-  }finally{
-
-    el.button.disabled =
-      false;
-
-  }
-
-}
-
-
-function selectTab(button,type){
+window.selectTab =
+function(button,type){
 
   document
     .querySelectorAll(".tab")
@@ -1452,10 +1214,10 @@ function selectTab(button,type){
   if(type === "image"){
 
     prompt.placeholder =
-      "Image to Video will be connected in the next VIZORA engine update. For now, use Text to Video.";
+      "Image to Video will be added in the next VIZORA upgrade.";
 
     showMessage(
-      "Image to Video is coming next. Text to Video is connected now."
+      "Image to Video is coming next."
     );
 
   }
@@ -1463,23 +1225,704 @@ function selectTab(button,type){
   else if(type === "story"){
 
     prompt.placeholder =
-      "Write your story here. VIZORA AI will turn it into multiple cinematic scenes...";
+      "Write your story here. Story to Video will be added in the next VIZORA upgrade.";
+
+    showMessage(
+      "Story to Video is coming next."
+    );
 
   }
 
   else{
 
     prompt.placeholder =
-      "Example: A young African trader sits in a dark room watching XAUUSD on his laptop. Suddenly gold starts rising rapidly. He jumps from his chair and celebrates...";
+      "Example: A young African trader sits in a dark room watching XAUUSD on his laptop. Suddenly gold starts rising rapidly...";
+
+  }
+
+};
+
+
+/* ------------------------------------------------------
+   STATUS
+------------------------------------------------------ */
+
+function setStatus(
+  main,
+  small,
+  percent
+){
+
+  document
+    .getElementById("status")
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById("statusText")
+    .textContent =
+    main;
+
+
+  document
+    .getElementById("statusSmall")
+    .textContent =
+    small;
+
+
+  if(
+    typeof percent === "number"
+  ){
+
+    document
+      .getElementById("progressBar")
+      .style.width =
+      percent + "%";
 
   }
 
 }
 
 
-async function shareVideo(){
+/* ------------------------------------------------------
+   PROGRESS
+------------------------------------------------------ */
 
-  if(!currentVideoUrl){
+function startProgress(){
+
+  clearInterval(progressTimer);
+
+
+  let value = 8;
+
+
+  progressTimer =
+    setInterval(function(){
+
+      if(value < 90){
+
+        value += 1;
+
+        document
+          .getElementById("progressBar")
+          .style.width =
+          value + "%";
+
+      }
+
+    },1500);
+
+}
+
+
+function stopProgress(){
+
+  clearInterval(
+    progressTimer
+  );
+
+  progressTimer = null;
+
+}
+
+
+/* ------------------------------------------------------
+   PROMPT
+------------------------------------------------------ */
+
+function makePrompt(
+  original,
+  style
+){
+
+  return (
+    original +
+    "\n\n" +
+    "Visual style: " +
+    style +
+    ". " +
+    "High quality cinematic video, " +
+    "natural motion, coherent movement."
+  );
+
+}
+
+
+/* ------------------------------------------------------
+   VIDEO URL FINDER
+------------------------------------------------------ */
+
+function findVideoUrl(data){
+
+  if(!data){
+    return "";
+  }
+
+
+  const visited =
+    new Set();
+
+
+  function scan(value){
+
+    if(!value){
+      return "";
+    }
+
+
+    if(
+      typeof value === "string"
+    ){
+
+      if(
+        value.startsWith("http://") ||
+        value.startsWith("https://")
+      ){
+
+        return value;
+
+      }
+
+      return "";
+
+    }
+
+
+    if(
+      typeof value !== "object"
+    ){
+
+      return "";
+
+    }
+
+
+    if(
+      visited.has(value)
+    ){
+
+      return "";
+
+    }
+
+
+    visited.add(value);
+
+
+    /*
+      Gradio FileData normally contains
+      a URL or path.
+    */
+
+    if(
+      typeof value.url === "string" &&
+      value.url
+    ){
+
+      return value.url;
+
+    }
+
+
+    if(
+      typeof value.path === "string"
+    ){
+
+      if(
+        value.path.startsWith("http://") ||
+        value.path.startsWith("https://")
+      ){
+
+        return value.path;
+
+      }
+
+    }
+
+
+    if(
+      Array.isArray(value)
+    ){
+
+      for(
+        const item of value
+      ){
+
+        const found =
+          scan(item);
+
+        if(found){
+          return found;
+        }
+
+      }
+
+    }
+
+
+    for(
+      const key of Object.keys(value)
+    ){
+
+      const found =
+        scan(value[key]);
+
+      if(found){
+        return found;
+      }
+
+    }
+
+
+    return "";
+
+  }
+
+
+  return scan(data);
+
+}
+
+
+/* ------------------------------------------------------
+   DISPLAY VIDEO
+------------------------------------------------------ */
+
+function displayVideo(url){
+
+  generatedVideoUrl =
+    url;
+
+
+  const result =
+    document.getElementById("result");
+
+
+  const box =
+    document.getElementById("videoBox");
+
+
+  const download =
+    document.getElementById("downloadBtn");
+
+
+  box.innerHTML = "";
+
+
+  const video =
+    document.createElement("video");
+
+
+  video.controls = true;
+
+  video.playsInline = true;
+
+  video.preload = "metadata";
+
+  video.src = url;
+
+
+  box.appendChild(video);
+
+
+  download.href =
+    url;
+
+  download.style.display =
+    "block";
+
+
+  result.style.display =
+    "block";
+
+
+  result.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+}
+
+
+/* ------------------------------------------------------
+   GENERATE
+------------------------------------------------------ */
+
+window.generateVideo =
+async function(){
+
+  if(generating){
+
+    showMessage(
+      "A video is already being generated."
+    );
+
+    return;
+
+  }
+
+
+  const prompt =
+    document
+      .getElementById("prompt")
+      .value
+      .trim();
+
+
+  if(!prompt){
+
+    showMessage(
+      "Describe the video you want to create first."
+    );
+
+    return;
+
+  }
+
+
+  const button =
+    document.getElementById(
+      "generateBtn"
+    );
+
+
+  const style =
+    document
+      .getElementById("style")
+      .value;
+
+
+  const format =
+    document
+      .getElementById("format")
+      .value;
+
+
+  /*
+    IMPORTANT:
+
+    For now we intentionally generate
+    ONLY ONE 5-second scene.
+
+    This matches the working test you
+    already successfully generated.
+  */
+
+  const sceneCount =
+    "1";
+
+
+  const seconds =
+    "5";
+
+
+  /*
+    384 is one of the supported
+    resolutions in the current Space
+    and keeps the first request lighter.
+  */
+
+  const resolution =
+    "384";
+
+
+  const finalPrompt =
+    makePrompt(
+      prompt,
+      style
+    );
+
+
+  const scene1 =
+    finalPrompt;
+
+
+  const scene2 =
+    finalPrompt;
+
+
+  const scene3 =
+    finalPrompt;
+
+
+  const scene4 =
+    finalPrompt;
+
+
+  generating = true;
+
+
+  button.disabled = true;
+
+
+  button.textContent =
+    "⏳ GENERATING...";
+
+
+  document
+    .getElementById("result")
+    .style.display =
+    "none";
+
+
+  setStatus(
+    "Connecting to AI video engine...",
+    "Connecting to Hugging Face...",
+    8
+  );
+
+
+  startProgress();
+
+
+  try{
+
+
+    console.log(
+      "VIZORA: Connecting to:",
+      SPACE
+    );
+
+
+    const client =
+      await Client.connect(
+        SPACE
+      );
+
+
+    setStatus(
+      "AI engine connected.",
+      "Sending your video request...",
+      15
+    );
+
+
+    console.log(
+      "VIZORA: Sending T2V request"
+    );
+
+
+    /*
+      CURRENT API ORDER:
+
+      scene count
+      seconds
+      resolution
+      aspect ratio
+      base prompt
+      scene 1
+      scene 2
+      scene 3
+      scene 4
+    */
+
+    const result =
+      await client.predict(
+        "/_submit_t2v",
+        [
+          sceneCount,
+          seconds,
+          resolution,
+          format,
+          finalPrompt,
+          scene1,
+          scene2,
+          scene3,
+          scene4
+        ]
+      );
+
+
+    console.log(
+      "VIZORA RAW RESPONSE:",
+      result
+    );
+
+
+    setStatus(
+      "AI generation finished.",
+      "Locating your video file...",
+      94
+    );
+
+
+    const url =
+      findVideoUrl(
+        result.data
+      );
+
+
+    if(!url){
+
+      console.error(
+        "VIZORA RESPONSE DATA:",
+        result.data
+      );
+
+
+      throw new Error(
+        "The AI engine finished, but no video URL was returned."
+      );
+
+    }
+
+
+    stopProgress();
+
+
+    setStatus(
+      "🎉 Video ready!",
+      "Your VIZORA AI video has been generated successfully.",
+      100
+    );
+
+
+    displayVideo(
+      url
+    );
+
+
+    showMessage(
+      "🎉 Your 5-second AI video is ready!"
+    );
+
+
+  }
+
+  catch(error){
+
+    stopProgress();
+
+
+    console.error(
+      "VIZORA AI ERROR:",
+      error
+    );
+
+
+    const friendly =
+      getErrorMessage(
+        error
+      );
+
+
+    setStatus(
+      "Generation failed.",
+      friendly,
+      0
+    );
+
+
+    showMessage(
+      friendly
+    );
+
+  }
+
+
+  finally{
+
+    generating = false;
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "✨ GENERATE VIDEO";
+
+  }
+
+};
+
+
+/* ------------------------------------------------------
+   ERROR HANDLER
+------------------------------------------------------ */
+
+function getErrorMessage(error){
+
+  const message =
+    (
+      error &&
+      error.message
+        ? error.message
+        : String(error || "")
+    )
+    .toLowerCase();
+
+
+  console.error(
+    "VIZORA ERROR MESSAGE:",
+    message
+  );
+
+
+  if(
+    message.includes("queue")
+  ){
+
+    return(
+      "The free AI engine is busy. Wait a little and try again."
+    );
+
+  }
+
+
+  if(
+    message.includes("quota") ||
+    message.includes("limit") ||
+    message.includes("exceeded")
+  ){
+
+    return(
+      "The free AI engine has reached its current limit. Try again later."
+    );
+
+  }
+
+
+  if(
+    message.includes("connect") ||
+    message.includes("network") ||
+    message.includes("fetch")
+  ){
+
+    return(
+      "Connection problem. Check your internet and try again."
+    );
+
+  }
+
+
+  if(
+    message.includes("predict")
+  ){
+
+    return(
+      "The AI engine rejected this request. The Space may be busy or temporarily unavailable."
+    );
+
+  }
+
+
+  return(
+    "The AI engine is temporarily unavailable. Wait a moment and try again."
+  );
+
+}
+
+
+/* ------------------------------------------------------
+   SHARE
+------------------------------------------------------ */
+
+window.shareVideo =
+async function(){
+
+  if(!generatedVideoUrl){
 
     showMessage(
       "Generate a video first."
@@ -1490,80 +1933,149 @@ async function shareVideo(){
   }
 
 
-  try{
+  if(
+    navigator.share
+  ){
 
-    if(
-      navigator.share
-    ){
+    try{
 
       await navigator.share({
-        title:"VIZORA AI Video",
-        text:"Created with VIZORA AI",
-        url:currentVideoUrl
+
+        title:
+          "My VIZORA AI Video",
+
+        text:
+          "Created with VIZORA AI",
+
+        url:
+          generatedVideoUrl
+
       });
 
-    }else{
-
-      await navigator.clipboard.writeText(
-        currentVideoUrl
-      );
-
-      showMessage(
-        "Video link copied."
-      );
+      return;
 
     }
 
-  }catch(error){
+    catch(error){
 
-    console.log(
-      "Share cancelled:",
-      error
+      /*
+        User cancelled sharing.
+      */
+
+    }
+
+  }
+
+
+  try{
+
+    await navigator.clipboard.writeText(
+      generatedVideoUrl
+    );
+
+
+    showMessage(
+      "Video link copied."
     );
 
   }
 
-}
+  catch(error){
+
+    showMessage(
+      "Video generated successfully."
+    );
+
+  }
+
+};
 
 
-function showMessage(message){
+/* ------------------------------------------------------
+   TOAST
+------------------------------------------------------ */
+
+window.showMessage =
+function(message){
 
   const toast =
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
+
 
   toast.textContent =
     message;
 
-  toast.classList.add("show");
+
+  toast.classList.add(
+    "show"
+  );
 
 
-  setTimeout(function(){
+  setTimeout(
+    function(){
 
-    toast.classList.remove("show");
+      toast.classList.remove(
+        "show"
+      );
 
-  },3500);
+    },
+    4500
+  );
 
-}
+};
 
 
-/*
-  Make functions available to
-  the HTML onclick handlers.
-*/
+/* ------------------------------------------------------
+   KEYBOARD SHORTCUT
+------------------------------------------------------ */
 
-window.generateVideo =
-  generateVideo;
+document
+  .getElementById("prompt")
+  .addEventListener(
+    "keydown",
+    function(event){
 
-window.selectTab =
-  selectTab;
+      if(
+        event.key === "Enter" &&
+        (
+          event.ctrlKey ||
+          event.metaKey
+        )
+      ){
 
-window.shareVideo =
-  shareVideo;
+        event.preventDefault();
 
-window.showMessage =
-  showMessage;
+        window.generateVideo();
+
+      }
+
+    }
+  );
+
+
+/* ------------------------------------------------------
+   READY
+------------------------------------------------------ */
+
+console.log(
+  "VIZORA AI loaded."
+);
+
+console.log(
+  "Hugging Face Space:",
+  SPACE
+);
+
+console.log(
+  "T2V endpoint:",
+  "/_submit_t2v"
+);
 
 </script>
 
+
 </body>
+
 </html>
